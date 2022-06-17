@@ -1,11 +1,8 @@
 import React from "react";
+import PostContent from "../../components/Posts/Single-post/PostContent";
 
 const SinglePostPage = () => {
-  return (
-    <div>
-      <h1>Single post</h1>
-    </div>
-  );
+  return <PostContent />;
 };
 
 export default SinglePostPage;
