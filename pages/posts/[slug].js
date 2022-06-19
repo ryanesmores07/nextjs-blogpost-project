@@ -1,35 +1,34 @@
 import React from "react";
-import PostContent from "../../components/Posts/Single-post/PostContent";
-// import { getPostData, getPostsFiles } from "../../lib/PostsUtils";
+import PostContent from "../../components/Posts/SinglePost/PostContent";
+import { getPostData, getPostsFiles } from "../../lib/PostsUtils";
 
 const SinglePostPage = (props) => {
-  // return <PostContent post={props.post} />;
-  return <PostContent />;
+  return <PostContent post={props.post} />;
 };
 
-// export const getStaticProps = (context) => {
-//   const { slug } = context.params;
-//   const singlePost = getPostData(slug);
+export const getStaticProps = (context) => {
+  const { slug } = context.params;
+  const singlePost = getPostData(slug);
 
-//   return {
-//     props: {
-//       post: singlePost,
-//     },
-//     revalidate: 600,
-//   };
-// };
+  return {
+    props: {
+      post: singlePost,
+    },
+    revalidate: 600,
+  };
+};
 
-// export const getStaticPaths = () => {
-//   const postFileNames = getPostsFiles();
+export const getStaticPaths = () => {
+  const postFileNames = getPostsFiles();
 
-//   const slugs = postFileNames
-//     .map((fileName) => fileName.replace(/\.md$/, ""))
-//     .map((slug) => ({ params: { slug: slug } }));
+  const slugs = postFileNames
+    .map((fileName) => fileName.replace(/\.md$/, ""))
+    .map((slug) => ({ params: { slug: slug } }));
 
-//   return {
-//     paths: slugs,
-//     fallback: false,
-//   };
-// };
+  return {
+    paths: slugs,
+    fallback: false,
+  };
+};
 
 export default SinglePostPage;
