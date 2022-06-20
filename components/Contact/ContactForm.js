@@ -1,25 +1,56 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 const ContactForm = () => {
+  const emailInputRef = useRef();
+  const nameInputRef = useRef();
+  const messageInputRef = useRef();
+
+  const sendMessageHandler = (e) => {
+    e.preventDefault();
+
+    // optional: add client-side validation
+
+    const enteredEmail = emailInputRef.current.value;
+    const enteredName = nameInputRef.current.value;
+    const enteredMessage = messageInputRef.current.value;
+
+    fetch("/api/contact", {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        name: enteredName,
+        message: enteredMessage,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   return (
     <Wrapper>
       <section className="contact">
         <h1>How can I help you?</h1>
-        <form className="form">
+        <form className="form" onSubmit={sendMessageHandler}>
           <div className="controls">
             <div className="control">
               <label htmlFor="email">Your Email</label>
-              <input type="email" id="email" email required />
+              <input type="email" id="email" required ref={emailInputRef} />
             </div>
             <div className="control">
               <label htmlFor="name">Your Name</label>
-              <input type="text" id="name" email required />
+              <input type="text" id="name" required ref={nameInputRef} />
             </div>
           </div>
           <div className="control">
             <label htmlFor="message">Your Message</label>
-            <textarea id="message" rows="5"></textarea>
+            <textarea
+              id="message"
+              rows="5"
+              required
+              ref={messageInputRef}
+            ></textarea>
           </div>
           <div className="actions">
             <button>Send Message</button>
